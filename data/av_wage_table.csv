@@ -1,55 +1,52 @@
-﻿Source: ACS 1-Year Estimates Public Use Microdata Sample 2021
-Weight used: PWGTP
-"Universe: selected geographies: Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, District of Columbia, Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana, Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia, Wisconsin, Wyoming"
-"Selected Geographies","Wages or salary income past 12 months (use ADJINC to adjust WAGP to constant dollars)"
-"Alabama","21148"
-"Alaska","28281"
-"Arizona","24918"
-"Arkansas","20255"
-"California","30891"
-"Colorado","32354"
-"Connecticut","34710"
-"Delaware","25878"
-"District of Columbia","52005"
-"Florida","23924"
-"Georgia","25668"
-"Hawaii","25405"
-"Idaho","22651"
-"Illinois","29298"
-"Indiana","24292"
-"Iowa","24962"
-"Kansas","24890"
-"Kentucky","21047"
-"Louisiana","21173"
-"Maine","25165"
-"Maryland","34703"
-"Massachusetts","37293"
-"Michigan","24144"
-"Minnesota","30692"
-"Mississippi","18281"
-"Missouri","24533"
-"Montana","22984"
-"Nebraska","26605"
-"Nevada","24019"
-"New Hampshire","33168"
-"New Jersey","35411"
-"New Mexico","19871"
-"New York","31550"
-"North Carolina","25136"
-"North Dakota","25600"
-"Ohio","24764"
-"Oklahoma","20701"
-"Oregon","26646"
-"Pennsylvania","27357"
-"Rhode Island","28930"
-"South Carolina","22141"
-"South Dakota","24976"
-"Tennessee","23482"
-"Texas","25858"
-"Utah","26617"
-"Vermont","25877"
-"Virginia","32182"
-"Washington","33943"
-"West Virginia","19501"
-"Wisconsin","26734"
-"Wyoming","23963"
+﻿Selected Geographies,Wages or salary income past 12 months (use ADJINC to adjust WAGP to constant dollars)
+Alabama,21148
+Alaska,28281
+Arizona,24918
+Arkansas,20255
+California,30891
+Colorado,32354
+Connecticut,34710
+Delaware,25878
+District of Columbia,52005
+Florida,23924
+Georgia,25668
+Hawaii,25405
+Idaho,22651
+Illinois,29298
+Indiana,24292
+Iowa,24962
+Kansas,24890
+Kentucky,21047
+Louisiana,21173
+Maine,25165
+Maryland,34703
+Massachusetts,37293
+Michigan,24144
+Minnesota,30692
+Mississippi,18281
+Missouri,24533
+Montana,22984
+Nebraska,26605
+Nevada,24019
+New Hampshire,33168
+New Jersey,35411
+New Mexico,19871
+New York,31550
+North Carolina,25136
+North Dakota,25600
+Ohio,24764
+Oklahoma,20701
+Oregon,26646
+Pennsylvania,27357
+Rhode Island,28930
+South Carolina,22141
+South Dakota,24976
+Tennessee,23482
+Texas,25858
+Utah,26617
+Vermont,25877
+Virginia,32182
+Washington,33943
+West Virginia,19501
+Wisconsin,26734
+Wyoming,23963
