@@ -62,3 +62,42 @@ X axis:
     x = wages ("Wages or salary income past 12 months (use ADJINC to adjust WAGP to constant dollars)")
     xScale1 (linear)
         domain = 0 -> max wages
+
+### What can be drawn or assigned initially and what needs to be adjusted by the filter
+Intital:
+- svg
+- scales
+- color
+
+On Filter:
+- dots
+- axes
+- tool tip (had these at init, but wasn't working)
+
+Realized my proposed "filter" isn't filtering the data. What I'm actually asking the event selction to do is redraw the dots (new x and y) and redraw the x-axis, and incoprorate the proper scale....
+
+That is to say, my data isn't changing but my join is changing. Maybe I can still work in some transitions here.
+
+Maybe I can make an if/else function, set up each of the changes I want and tie them to the dropdown...maybe I can embbed the if/else within the data join.
+
+I'm thinking it basically works like this:
+- I read in the data on initialization
+- I draw some initial elements
+- there is a state change, based on dropdown selection
+- the state change doesn't change the data, but it changes the draw function
+    - specifically at the data join stage??
+
+I got it to draw each graph on selection (no exit transistion yet). The only changes that I am making on the event are to:
+- const xAxis
+- xAxisGroup.append
+    .text("")
+- const circles
+    .attr("cx")
+I'm wondering if there is a way to isolate only these changes. Need to work out my transitions and maybe return to this...
+
+### Transitions
+I spent some time trying to figure out why my circles were clearing out each time I made a new selection, but my x axis kept stacking (I discoverd my tool tip layer was as well). What I realized was that as part of the data join I was selecting all "circle" elements and reassigning them to new data. 
+
+Since the axes and tool tips aren't tied to the data in the same way, I added a step to the dropdown event that selects and removes them, by class, so they can be rewritten by the draw function. 
+
+Now I need to figure out if I can add transitions into any of these steps...

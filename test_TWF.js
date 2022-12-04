@@ -39,7 +39,7 @@ const svg = d3.select("#container3")
   .append("svg")
   .attr("width", width)
   .attr("height", height)
-  .style("background-color", "rgb(213 200 175)")
+  .style("background-color", "rgb(213 200 175)");
 
 // tool tips
 const tooltip = d3.select("#container3")
@@ -50,7 +50,7 @@ const tooltip = d3.select("#container3")
   .style("border", "solid")
   .style("border-width", "1px")
   .style("border-radius", "5px")
-  .style("padding", "10px")
+  .style("padding", "10px");
 
 // axes
 const xAxis = d3.axisBottom(xScale3_TWF)
@@ -99,6 +99,8 @@ const mouseover = function(event, d) {
 const mousemove = function(event, d) {
     tooltip
         .html(`${d['Selected Geographies']}`)
+        .style("display", "inline")
+        .style("position","fixed")
         .style("left", (event.x)/2 + 'px') 
         .style("top", (event.y)/2 + 'px')
 }
