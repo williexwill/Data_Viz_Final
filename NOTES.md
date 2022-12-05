@@ -101,3 +101,9 @@ I spent some time trying to figure out why my circles were clearing out each tim
 Since the axes and tool tips aren't tied to the data in the same way, I added a step to the dropdown event that selects and removes them, by class, so they can be rewritten by the draw function. 
 
 Now I need to figure out if I can add transitions into any of these steps...
+
+I was able to add a transition to the x-axis remove fairly easily. However I am having a harder time adding transitions to the entering elements. 
+
+When I add a transition to the x-axis .call, the select function is no longer able to grab/join/generate the circles. (error seems to be with me tring to append after text the transition...)
+
+When I tried to add an enter function (never mind update/exit) to the circles, it fails to append any circles to the svg...(no error appearing, just no circles being appended...)

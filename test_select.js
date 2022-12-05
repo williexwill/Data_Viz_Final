@@ -88,8 +88,10 @@ const selectElement = d3.select("#dropdown")
         d3.selectAll('.tooltip')
           .remove()
         d3.selectAll('.xAxis')
+          .transition()
+          .duration(500)
+          .style("opacity", 0)
           .remove()
-        //can I add enter and exit functions here?
 
         draw();
     })
@@ -170,6 +172,10 @@ if (state.selectedGraph === "Total Workforce"){
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
     .call(xAxis)
+      // .style("opacity", 0)
+      // .transition()
+      // .duration(1000)
+      // .style("opacity", 1);
   
   xAxisGroup.append("text")
     .attr("class", 'axis-title')
@@ -203,6 +209,11 @@ else if (state.selectedGraph === "Unemployment"){
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
     .call(xAxis)
+    // .style("opacity", 0)
+    // .transition()
+    // .duration(1000)
+    // .style("opacity", 1)
+    
 
   xAxisGroup.append("text")
     .attr("class", 'axis-title')
@@ -236,6 +247,10 @@ else if (state.selectedGraph === "Wages"){
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
     .call(xAxis)
+    // .style("opacity", 0)
+    // .transition()
+    // .duration(1000)
+    // .style("opacity", 1)
 
   xAxisGroup.append("text")
     .attr("class", 'axis-title')
@@ -265,10 +280,14 @@ else if (state.selectedGraph === "GDP"){
   const xAxis = d3.axisBottom(xScale3_GDP)
     .tickFormat(d => '$' + (d/1000) + 'B');
 
-  const xAxisGroup = svg.append("g")
+  let xAxisGroup = svg.append("g")
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
     .call(xAxis)
+    // .style("opacity", 0)
+    // .transition()
+    // .duration(1000)
+    // .style("opacity", 1)
 
   xAxisGroup.append("text")
     .attr("class", 'axis-title')
@@ -281,7 +300,7 @@ else if (state.selectedGraph === "GDP"){
     .text("GDP 2019")
 
 
-//add circles  
+//add circles
 const circles = svg.selectAll("circle")
   .data(state.data, d => d["Selected Geographies"])
   .join("circle")
@@ -292,79 +311,37 @@ const circles = svg.selectAll("circle")
   .on("mouseover", mouseover )
   .on("mousemove", mousemove )
   .on("mouseleave", mouseleave )
-};
+
+// const circles = svg.selectAll("circle")
+//   .data(state.data, d => d["Selected Geographies"])
+//   .join(
+//     enter => enter.append("circle")
+//       .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil))
+//       .attr("cy", height3 - margin3.bottom)
+//       .attr("r", radius)
+//       .attr("fill", d => colorScale(d.party))
+//       .style("opacity", 0)
+//       .on("mouseover", mouseover)
+//       .on("mousemove", mousemove)
+//       .on("mouseleave", mouseleave)
+//       .call(sel => sel
+//         .transition()
+//         .duration(1000)
+//         .attr("cy", d => yScale3(d.PEPW))
+//         .style("opacity", 1)
+//         ),
+
+      // exit => exit
+      // .call(sel => sel
+      //     .attr("opacity", 1)
+      //     .transition()
+      //     .duration(500)
+      //     .attr("opacity", 0)
+      //     .attr("cy", height3 - margin3.bottom) 
+      //     .remove()
+      //     )
+    // )
+  };
 }
 
-//   // + FILTER GRAPH BASED ON STATE
-// need to create an if/else function here to run through my different graphs and instruct what to draw.
-
-// //   const filteredData = state.data
-// //     .filter(d => state.selectedParty === "All" || state.selectedParty === d.Party)
-
-//   const dot = svg
-//     .selectAll("circle")
-//     .data(state.data, d => d["Selected Geographies"])
-//     .join(
-//       + HANDLE ENTER SELECTION
-//       enter => enter.append("circle")
-//           .attr("r", 5)
-//           .attr("class", "dot")
-//           .attr("cx", d => xScale(d.ideology))
-//           .attr("cy", d => yScale(d.Score))
-//           .attr("fill", d => colorScale(d.Party))
-//           .call(sel => sel
-//             .transition()
-//             .duration(2000)
-//             .attr("r", d => sizeScale(d.Population))
-//           ),
-
-//       + HANDLE UPDATE SELECTION
-//       update => update
-//         .call(sel => sel.transition()
-//           .duration(1000)
-//           .attr("r", 5) 
-//           .transition()
-//           .duration(1000)
-//           .attr("r", d => sizeScale(d.Population))      
-//       ),
-
-//       + HANDLE EXIT SELECTION
-//       exit => exit
-//         .call(sel => sel
-//           .attr("opacity", 1)
-//           .transition()
-//           .duration(1000)
-//           .attr("opacity", 0)
-//           .attr("r", 5) 
-//           .remove()
-//           )
-//     );
-// }
-
-// function update(data) {
-//   d3.select('.chart')
-//     .selectAll('circle')
-//     .data(data)
-//     .join('circle')
-//     .attr('cx', function(d, i) {
-//       return i * 100;
-//     })
-//     .attr('cy', 50)
-//     .attr('r', function(d) {
-//       return 0.5 * d;
-//     })
-//     .style('fill', function(d) {
-//       return d > 30 ? 'orange' : '#eee';
-//     });
-// }
-
-// function updateAll() {
-//   let myData = getData();
-//   update(myData);
-// }
-
-// updateAll();
-
-// d3.select("button")
-//   .on("click", updateAll);
 
