@@ -106,4 +106,4 @@ I was able to add a transition to the x-axis remove fairly easily. However I am 
 
 When I add a transition to the x-axis .call, the select function is no longer able to grab/join/generate the circles. (error seems to be with me tring to append after text the transition...)
 
-When I tried to add an enter function (never mind update/exit) to the circles, it fails to append any circles to the svg...(no error appearing, just no circles being appended...)
+When I tried to add an enter function (never mind update/exit) to the circles, it fails to append any circles to the svg...(no error appearing, just circles aren't being appended...)
