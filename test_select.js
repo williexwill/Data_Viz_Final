@@ -208,12 +208,7 @@ else if (state.selectedGraph === "Unemployment"){
   const xAxisGroup = svg.append("g")
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
-    .call(xAxis)
-    // .style("opacity", 0)
-    // .transition()
-    // .duration(1000)
-    // .style("opacity", 1)
-    
+    .call(xAxis) 
 
   xAxisGroup.append("text")
     .attr("class", 'axis-title')
@@ -224,6 +219,11 @@ else if (state.selectedGraph === "Unemployment"){
     .attr("font-family", "Amiri")
     .attr("font-size", "1.5em")
     .text("Unemployment")
+      .style("opacity", 0)
+      .transition()
+      .duration(1000)
+      .style("opacity", 1)
+    
 
 
 //add circles  
@@ -247,20 +247,18 @@ else if (state.selectedGraph === "Wages"){
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
     .call(xAxis)
-    // .style("opacity", 0)
-    // .transition()
-    // .duration(1000)
-    // .style("opacity", 1)
+  
+    
 
-  xAxisGroup.append("text")
-    .attr("class", 'axis-title')
-    .attr("x", width3 / 2)
-    .attr("y", 40)
-    .attr("text-anchor", "middle")
-    .attr("fill", "#333333")
-    .attr("font-family", "Amiri")
-    .attr("font-size", "1.5em")
-    .text("Average Yearly Wage")
+  // xAxisGroup.append("text")
+  //   .attr("class", 'axis-title')
+  //   .attr("x", width3 / 2)
+  //   .attr("y", 40)
+  //   .attr("text-anchor", "middle")
+  //   .attr("fill", "#333333")
+  //   .attr("font-family", "Amiri")
+  //   .attr("font-size", "1.5em")
+  //   .text("Average Yearly Wage")
 
 
 //add circles  
@@ -280,16 +278,17 @@ else if (state.selectedGraph === "GDP"){
   const xAxis = d3.axisBottom(xScale3_GDP)
     .tickFormat(d => '$' + (d/1000) + 'B');
 
-  let xAxisGroup = svg.append("g")
+  const xAxisGroup = svg.append("g")
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
-    .call(xAxis)
-    // .style("opacity", 0)
-    // .transition()
-    // .duration(1000)
-    // .style("opacity", 1)
+    .style("opacity", 0)
+    .call(xAxis => xAxis
+      .transition()
+      .duration(1000)
+      .style("opacity", 1)
+      )
 
-  xAxisGroup.append("text")
+ xAxisGroup.append("text")
     .attr("class", 'axis-title')
     .attr("x", width3 / 2)
     .attr("y", 40)
@@ -298,6 +297,10 @@ else if (state.selectedGraph === "GDP"){
     .attr("font-family", "Amiri")
     .attr("font-size", "1.5em")
     .text("GDP 2019")
+      .style("opacity", 0)
+      .transition()
+      .duration(1000)
+      .style("opacity", 1);
 
     // Add/move circles
   const circles = svg.selectAll("circle")
@@ -309,9 +312,6 @@ else if (state.selectedGraph === "GDP"){
         .attr("r", radius)
         .attr("fill", d => colorScale(d.party))
         .style("opacity", 0)
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
         .call(sel => sel
           .transition()
           .duration(1000)
@@ -324,11 +324,7 @@ else if (state.selectedGraph === "GDP"){
           .duration(1000)
           .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil)) 
           .attr("cy", d => yScale3(d.PEPW))
-          .style("opacity", 1)
-          .on("mouseover", mouseover)
-          .on("mousemove", mousemove)
-          .on("mouseleave", mouseleave)
-              
+          .style("opacity", 1)              
       ),
 
       exit => exit
@@ -340,6 +336,9 @@ else if (state.selectedGraph === "GDP"){
           .remove()
           )
     )
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
   };
 }
 
