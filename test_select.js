@@ -299,48 +299,47 @@ else if (state.selectedGraph === "GDP"){
     .attr("font-size", "1.5em")
     .text("GDP 2019")
 
+    // Add/move circles
+  const circles = svg.selectAll("circle")
+    .data(state.data, d => d["Selected Geographies"])
+    .join(
+      enter => enter.append("circle")
+        .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil))
+        .attr("cy", height3 - margin3.bottom)
+        .attr("r", radius)
+        .attr("fill", d => colorScale(d.party))
+        .style("opacity", 0)
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("mouseleave", mouseleave)
+        .call(sel => sel
+          .transition()
+          .duration(1000)
+          .attr("cy", d => yScale3(d.PEPW))
+          .style("opacity", 1)
+        ),
 
-//add circles
-const circles = svg.selectAll("circle")
-  .data(state.data, d => d["Selected Geographies"])
-  .join("circle")
-  .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil))
-  .attr("cy", d => yScale3(d.PEPW))
-  .attr("r", radius)
-  .attr("fill", d => colorScale(d.party))
-  .on("mouseover", mouseover )
-  .on("mousemove", mousemove )
-  .on("mouseleave", mouseleave )
+      update => update
+        .call(sel => sel.transition()
+          .duration(1000)
+          .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil)) 
+          .attr("cy", d => yScale3(d.PEPW))
+          .style("opacity", 1)
+          .on("mouseover", mouseover)
+          .on("mousemove", mousemove)
+          .on("mouseleave", mouseleave)
+              
+      ),
 
-// const circles = svg.selectAll("circle")
-//   .data(state.data, d => d["Selected Geographies"])
-//   .join(
-//     enter => enter.append("circle")
-//       .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil))
-//       .attr("cy", height3 - margin3.bottom)
-//       .attr("r", radius)
-//       .attr("fill", d => colorScale(d.party))
-//       .style("opacity", 0)
-//       .on("mouseover", mouseover)
-//       .on("mousemove", mousemove)
-//       .on("mouseleave", mouseleave)
-//       .call(sel => sel
-//         .transition()
-//         .duration(1000)
-//         .attr("cy", d => yScale3(d.PEPW))
-//         .style("opacity", 1)
-//         ),
-
-      // exit => exit
-      // .call(sel => sel
-      //     .attr("opacity", 1)
-      //     .transition()
-      //     .duration(500)
-      //     .attr("opacity", 0)
-      //     .attr("cy", height3 - margin3.bottom) 
-      //     .remove()
-      //     )
-    // )
+      exit => exit
+      .call(sel => sel
+          .transition()
+          .duration(500)
+          .attr("opacity", 0)
+          .attr("cy", height3 - margin3.bottom) 
+          .remove()
+          )
+    )
   };
 }
 
