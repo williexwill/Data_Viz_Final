@@ -19,7 +19,19 @@ I have some experience with Leaflet mapping, so I'm going to try to incoproate t
 https://leafletjs.com/examples/choropleth/
 https://bost.ocks.org/mike/leaflet/ 
 
-I also need to figure out how to merge my census data with GeoJson data. 
+I also need to figure out how to merge my census data with GeoJson data.
+
+First I found a tile layer I liked and set up a leaflet map in my "container 1" div. Later I'll add an svg on top of that map, that includes state outline paths, and color info based on employment numbers. 
+
+### Data merge
+I have read in my csv and my geojson and stored both as arrays.
+
+Now I need to figure out how to pull unemployment data ("WFUE") and add it to the proper JSON arrays, (ideally using the common 'Selected Geographies' and 'name' properties of each). 
+
+(If I can't figure this out, maybe I'll think through ways to pull shape and color info separately)
+
+
+
 
 ## Scatter plot
 As I was working through this, I realized I should have both dynamic x and y axis. For the y axis I'm thinking a filter for level of state employment (federal, state, local), and the x axes will be relevant economic data (total workforce, GDP, unemployment, wages).
