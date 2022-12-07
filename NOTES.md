@@ -17,9 +17,7 @@ https://colab.research.google.com/drive/1BqUQ0jE1PWRWO23uX35q47HKRLoAIN_S?usp=sh
 I have some experience with Leaflet mapping, so I'm going to try to incoproate that with my data and some d3 implementation. 
 
 https://leafletjs.com/examples/choropleth/
-https://bost.ocks.org/mike/leaflet/
-http://techslides.com/convert-csv-to-json-in-javascript 
-http://zweibel.net/javascripting-masters-student/workshop/Javascript/?page=9 
+https://bost.ocks.org/mike/leaflet/ 
 
 I also need to figure out how to merge my census data with GeoJson data. 
 
@@ -107,3 +105,5 @@ I was able to add a transition to the x-axis remove fairly easily. However I am 
 When I add a transition to the x-axis .call, the select function is no longer able to grab/join/generate the circles. (error seems to be with me tring to append after text the transition...)
 
 When I tried to add an enter function (never mind update/exit) to the circles, it fails to append any circles to the svg...(no error appearing, just circles aren't being appended...)
+
+After office hours I realized I had some chaining issues. With a little trial and error I was able to rework the script and get everything functioning. 
