@@ -88,8 +88,15 @@ const selectElement = d3.select("#dropdown")
         d3.selectAll('.tooltip')
           .remove()
         d3.selectAll('.xAxis')
+          .transition()
+          .duration(500)
+          .style("opacity", 0)
           .remove()
-        //can I add enter and exit functions here?
+        d3.selectAll('.x-axis-title')
+          .transition()
+          .duration(500)
+          .style("opacity", 0)
+          .remove()
 
         draw();
     })
@@ -112,7 +119,7 @@ const yAxisGroup = svg.append("g")
 
 // add labels - yAxis
 yAxisGroup.append("text")
-    .attr("class", 'axis-title')
+    .attr("class", 'y-axis-title')
     .attr("x", -40)
     .attr("y", height3 / 2)
     .attr("writing-mode", "vertical-lr")
@@ -168,11 +175,10 @@ if (state.selectedGraph === "Total Workforce"){
   
   const xAxisGroup = svg.append("g")
     .attr("class", 'xAxis')
-    .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
-    .call(xAxis)
+    .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`)
   
   xAxisGroup.append("text")
-    .attr("class", 'axis-title')
+    .attr("class", 'x-axis-title')
     .attr("x", width3 / 2)
     .attr("y", 40)
     .attr("text-anchor", "middle")
@@ -181,18 +187,50 @@ if (state.selectedGraph === "Total Workforce"){
     .attr("font-size", "1.5em")
     .text("Total Workforce")
   
+  d3.selectAll('.xAxis')
+    .style("opacity", 0)
+    .call(xAxis) 
+      .transition()
+      .duration(1000)
+      .style("opacity", 1)
   
   //add circles  
   const circles = svg.selectAll("circle")
     .data(state.data, d => d["Selected Geographies"])
-    .join("circle")
-    .attr("cx", d => xScale3_TWF(d.TWF))
-    .attr("cy", d => yScale3(d.PEPW))
-    .attr("r", radius)
-    .attr("fill", d => colorScale(d.party))
-    .on("mouseover", mouseover )
-    .on("mousemove", mousemove )
-    .on("mouseleave", mouseleave )
+    .join(
+      enter => enter.append("circle")
+        .attr("cx", d => xScale3_TWF(d.TWF))
+        .attr("cy", height3 - margin3.bottom)
+        .attr("r", radius)
+        .attr("fill", d => colorScale(d.party))
+        .style("opacity", 0)
+        .call(sel => sel
+          .transition()
+          .duration(1000)
+          .attr("cy", d => yScale3(d.PEPW))
+          .style("opacity", 1)
+        ),
+  
+      update => update
+        .call(sel => sel.transition()
+          .duration(1000)
+          .attr("cx", d => xScale3_TWF(d.TWF)) 
+          .attr("cy", d => yScale3(d.PEPW))
+          //.style("opacity", 1)              
+        ),
+  
+      exit => exit
+        .call(sel => sel
+          .transition()
+          .duration(500)
+          .attr("opacity", 0)
+          .attr("cy", height3 - margin3.bottom) 
+          .remove()
+          )
+    )
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
 }
 
 else if (state.selectedGraph === "Unemployment"){
@@ -202,10 +240,9 @@ else if (state.selectedGraph === "Unemployment"){
   const xAxisGroup = svg.append("g")
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
-    .call(xAxis)
 
   xAxisGroup.append("text")
-    .attr("class", 'axis-title')
+    .attr("class", 'x-axis-title')
     .attr("x", width3 / 2)
     .attr("y", 40)
     .attr("text-anchor", "middle")
@@ -213,19 +250,51 @@ else if (state.selectedGraph === "Unemployment"){
     .attr("font-family", "Amiri")
     .attr("font-size", "1.5em")
     .text("Unemployment")
-
+  
+    d3.selectAll('.xAxis')
+    .style("opacity", 0)
+    .call(xAxis) 
+      .transition()
+      .duration(1000)
+      .style("opacity", 1)
 
 //add circles  
 const circles = svg.selectAll("circle")
   .data(state.data, d => d["Selected Geographies"])
-  .join("circle")
-  .attr("cx", d => xScale3_WFUE(d.WFUE))
-  .attr("cy", d => yScale3(d.PEPW))
-  .attr("r", radius)
-  .attr("fill", d => colorScale(d.party))
-  .on("mouseover", mouseover )
-  .on("mousemove", mousemove )
-  .on("mouseleave", mouseleave )
+  .join(
+    enter => enter.append("circle")
+      .attr("cx", d => xScale3_WFUE(d.WFUE))
+      .attr("cy", height3 - margin3.bottom)
+      .attr("r", radius)
+      .attr("fill", d => colorScale(d.party))
+      .style("opacity", 0)
+      .call(sel => sel
+        .transition()
+        .duration(1000)
+        .attr("cy", d => yScale3(d.PEPW))
+        .style("opacity", 1)
+      ),
+
+    update => update
+      .call(sel => sel.transition()
+        .duration(1000)
+        .attr("cx", d => xScale3_WFUE(d.WFUE)) 
+        .attr("cy", d => yScale3(d.PEPW))
+        //.style("opacity", 1)              
+      ),
+
+    exit => exit
+      .call(sel => sel
+        .transition()
+        .duration(500)
+        .attr("opacity", 0)
+        .attr("cy", height3 - margin3.bottom) 
+        .remove()
+        )
+  )
+  .on("mouseover", mouseover)
+  .on("mousemove", mousemove)
+  .on("mouseleave", mouseleave)  
 }
 
 else if (state.selectedGraph === "Wages"){
@@ -235,10 +304,9 @@ else if (state.selectedGraph === "Wages"){
   const xAxisGroup = svg.append("g")
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
-    .call(xAxis)
-
+    
   xAxisGroup.append("text")
-    .attr("class", 'axis-title')
+    .attr("class", 'x-axis-title')
     .attr("x", width3 / 2)
     .attr("y", 40)
     .attr("text-anchor", "middle")
@@ -247,18 +315,50 @@ else if (state.selectedGraph === "Wages"){
     .attr("font-size", "1.5em")
     .text("Average Yearly Wage")
 
+  d3.selectAll('.xAxis')
+  .style("opacity", 0)
+  .call(xAxis) 
+    .transition()
+    .duration(1000)
+    .style("opacity", 1)
 
 //add circles  
-const circles = svg.selectAll("circle")
-  .data(state.data, d => d["Selected Geographies"])
-  .join("circle")
-  .attr("cx", d => xScale3_wages(d.wages))
-  .attr("cy", d => yScale3(d.PEPW))
-  .attr("r", radius)
-  .attr("fill", d => colorScale(d.party))
-  .on("mouseover", mouseover )
-  .on("mousemove", mousemove )
-  .on("mouseleave", mouseleave )
+  const circles = svg.selectAll("circle")
+    .data(state.data, d => d["Selected Geographies"])
+    .join(
+      enter => enter.append("circle")
+        .attr("cx", d => xScale3_wages(d.wages))
+        .attr("cy", height3 - margin3.bottom)
+        .attr("r", radius)
+        .attr("fill", d => colorScale(d.party))
+        .style("opacity", 0)
+        .call(sel => sel
+          .transition()
+          .duration(1000)
+          .attr("cy", d => yScale3(d.PEPW))
+          .style("opacity", 1)
+        ),
+
+      update => update
+        .call(sel => sel.transition()
+          .duration(1000)
+          .attr("cx", d => xScale3_wages(d.wages)) 
+          .attr("cy", d => yScale3(d.PEPW))
+          //.style("opacity", 1)              
+        ),
+
+      exit => exit
+        .call(sel => sel
+          .transition()
+          .duration(500)
+          .attr("opacity", 0)
+          .attr("cy", height3 - margin3.bottom) 
+          .remove()
+          )
+    )
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
 }
 
 else if (state.selectedGraph === "GDP"){
@@ -268,10 +368,9 @@ else if (state.selectedGraph === "GDP"){
   const xAxisGroup = svg.append("g")
     .attr("class", 'xAxis')
     .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
-    .call(xAxis)
 
-  xAxisGroup.append("text")
-    .attr("class", 'axis-title')
+ xAxisGroup.append("text")
+    .attr("class", 'x-axis-title')
     .attr("x", width3 / 2)
     .attr("y", 40)
     .attr("text-anchor", "middle")
@@ -279,18 +378,52 @@ else if (state.selectedGraph === "GDP"){
     .attr("font-family", "Amiri")
     .attr("font-size", "1.5em")
     .text("GDP 2019")
+  
+  d3.selectAll('.xAxis')
+    .style("opacity", 0)
+    .call(xAxis) 
+      .transition()
+      .duration(1000)
+      .style("opacity", 1)
 
+    // Add/move circles
+  const circles = svg.selectAll("circle")
+    .data(state.data, d => d["Selected Geographies"])
+    .join(
+      enter => enter.append("circle")
+        .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil))
+        .attr("cy", height3 - margin3.bottom)
+        .attr("r", radius)
+        .attr("fill", d => colorScale(d.party))
+        .style("opacity", 0)
+        .call(sel => sel
+          .transition()
+          .duration(1000)
+          .attr("cy", d => yScale3(d.PEPW))
+          .style("opacity", 1)
+        ),
 
-//add circles  
-const circles = svg.selectAll("circle")
-  .data(state.data, d => d["Selected Geographies"])
-  .join("circle")
-  .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil))
-  .attr("cy", d => yScale3(d.PEPW))
-  .attr("r", radius)
-  .attr("fill", d => colorScale(d.party))
-  .on("mouseover", mouseover )
-  .on("mousemove", mousemove )
-  .on("mouseleave", mouseleave )
-};
+      update => update
+        .call(sel => sel.transition()
+          .duration(1000)
+          .attr("cx", d => xScale3_GDP(d.GDP_2019_In_Mil)) 
+          .attr("cy", d => yScale3(d.PEPW))
+          .style("opacity", 1)              
+      ),
+
+      exit => exit
+      .call(sel => sel
+          .transition()
+          .duration(500)
+          .attr("opacity", 0)
+          .attr("cy", height3 - margin3.bottom) 
+          .remove()
+          )
+    )
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("mouseleave", mouseleave)
+  };
 }
+
+
