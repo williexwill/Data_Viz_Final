@@ -3,9 +3,6 @@ const width3 = window.innerWidth * 0.7,
   height3 = window.innerHeight * 0.7,
   margin3 = { top: 20, bottom: 60, left: 60, right: 40 }
  
-let census_data = [];
-let map_data = [];
-let merged_data = [];
 let svg1;
 
 /*CREATE MAP*/
@@ -22,21 +19,43 @@ svg1 = d3.select(dataMap.getPanes().overlayPane).append("svg1"),
 			g = svg1.append("g").attr("class", "leaflet-zoom-hide");
 
 /* APPLICATION STATE */
-
+let merged_data = {
+    census: [],
+    geo: []
+};
+console.log("state1:merged_data", merged_data);
  
 /* LOAD DATA */
-census_data = d3.csv("data/Merged_Data_CALC.csv", d3.autoType);
-console.log("census_data", census_data);
-map_data = d3.json("data/us-states.json");
-console.log("map_data", map_data);
-
-merged_data = map_data.map(function(features){
-   if (features.properties.name === census_data['Selected Geographies']){
-        return features.properties.UEdata = { "unemployment" : census_data.UEWF}
-    }
-    });
-
-console.log("merged_data", merged_data);    
+d3.csv("data/Merged_Data_CALC.csv", d3.autoType).then(census_data => {
+    // + SET YOUR DATA PATH
+    console.log("census_data", census_data);
+    merged_data.census = census_data;
+    console.log("state2:merged_data", merged_data);
+  }).then(
+    d3.json("data/us-states.json").then(geo_data => {
+    console.log("geo_data", geo_data);
+    merged_data.geo = geo_data;
+    console.log("state3:merged_data", merged_data)
+    })).then(
+        merged_data.geo.features.forEach(function (feature) {
+            forEach(function (array) {
+                forEach(function (property) {
+                    merged_data.census.forEach(function (object) {
+                        if (object['Selected Geographies'] === property.name) {
+                            property.PEPW = object.PEPW        
+                        }
+                    })
+                })
+        })
+    })
+    ).then(console.log("state4:merged_data", merged_data));
+// })).then(merged_data.geo.map(function(features){
+//    if (features.properties.name === merged_data.census['Selected Geographies']){
+//         return features.properties.TWFdata = { "TPWF" : census_data.TPWF}
+//     }
+//     }).then(
+//     console.log("state4:merged_data", merged_data)    
+ 
 
 d3.json("data/us-states.json", function(geoShape) {
 		
@@ -90,3 +109,21 @@ d3.json("data/us-states.json", function(geoShape) {
     }
 
 });
+
+// $.get('./incomplete_housing_data2.csv', function(csvString) {
+
+//     var myIcon = L.divIcon({className: 'my-div-icon'});
+
+//     var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
+
+//     for (var i in data) {
+//       var row = data[i];
+
+//       var marker = L.marker([row.Latitude, row.Longitude] , 
+//         // {icon: myIcon}
+//        {opacity: 1}).bindPopup(row.AddressNum + " " + row.AddressSt);
+      
+//       marker.addTo(myMap);
+//     }
+
+//   });

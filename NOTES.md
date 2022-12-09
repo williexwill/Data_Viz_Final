@@ -30,6 +30,9 @@ Now I need to figure out how to pull unemployment data ("WFUE") and add it to th
 
 (If I can't figure this out, maybe I'll think through ways to pull shape and color info separately)
 
+I spent a while trying to figure this out, and go the point in my code where I was able to create a new data object that had the csv and GeoJSON data stored within it...and then I got stuck. 
+
+Looking into .nest() to pull from each and create a new array...
 
 
 
