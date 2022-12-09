@@ -38,8 +38,8 @@ d3.csv("data/Merged_Data_CALC.csv", d3.autoType).then(census_data => {
     console.log("state3:merged_data", merged_data)
     })).then(
         merged_data.geo.features.forEach(function (feature) {
-            forEach(function (array) {
-                forEach(function (property) {
+            feature.forEach(function (array) {
+                array.forEach(function (property) {
                     merged_data.census.forEach(function (object) {
                         if (object['Selected Geographies'] === property.name) {
                             property.PEPW = object.PEPW        
