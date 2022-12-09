@@ -23,6 +23,8 @@ I also need to figure out how to merge my census data with GeoJson data.
 
 First I found a tile layer I liked and set up a leaflet map in my "container 1" div. Later I'll add an svg on top of that map, that includes state outline paths, and color info based on employment numbers. 
 
+The above method and leaflet/d3 integration got the best of me. Eventually I went ahead and built a functioning map, mostly using Leaflet, with minor d3 integrations. 
+
 ### Data merge
 I have read in my csv and my geojson and stored both as arrays.
 
@@ -32,9 +34,9 @@ Now I need to figure out how to pull unemployment data ("WFUE") and add it to th
 
 I spent a while trying to figure this out, and go the point in my code where I was able to create a new data object that had the csv and GeoJSON data stored within it...and then I got stuck. 
 
-Looking into .nest() to pull from each and create a new array...
+Looking into .nest() to pull from each and create a new array... I tried making a nested forEach function to compare two different values from two different arrays and then create a new key:value pair in the first array...but I couldn't figure it out. I suspect part of the problem may have to do with my then() chaning and resolving promises...but I just couldn't wrap my head around it. 
 
-
+In the end I manually created a new dataset, and I abandoned using d3 to make the assignments. Once I combine my separate scripts into a final page, I may reinvestigate.  
 
 ## Scatter plot
 As I was working through this, I realized I should have both dynamic x and y axis. For the y axis I'm thinking a filter for level of state employment (federal, state, local), and the x axes will be relevant economic data (total workforce, GDP, unemployment, wages).
