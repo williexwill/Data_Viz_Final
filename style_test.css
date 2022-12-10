@@ -1,3 +1,5 @@
+/*Universal*/
+
 body {
   font-size: 16px;
   padding: 1em;
@@ -25,6 +27,13 @@ p {
   color: #333333;
 }
 
+.text{
+    color: #333333;
+    fill: none;
+}
+
+/*Map*/
+
 .info {
   padding: 6px 8px;
   font: 14px/18px "Amiri","Aboreto";
@@ -36,4 +45,33 @@ p {
 .info h4 {
   margin: 0 0 5px;
   color: #333333;
+}
+
+/*Graph*/
+#dropdown{
+
+}
+
+.tooltip{
+    opacity: 0;
+    background-color: white;
+    border: solid;
+    border-width: 0px;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: "Amiri";
+    font-size: 14px;
+    margin: 0.25em 0;
+    color: #333333;
+
+}
+
+.yAxis{
+    fill: "#333333";
+    font-family: "Amiri";
+}
+
+.xAxis{
+    fill: "#333333";
+    font-family: "Amiri";
 }
