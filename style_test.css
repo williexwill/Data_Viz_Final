@@ -48,8 +48,17 @@ p {
 }
 
 /*Graph*/
-#dropdown{
-
+.dropdown{
+    opacity: .75;
+    background: none;
+    border: solid;
+    border-width: 0px;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: "Amiri";
+    font-size: 14px;
+    margin: 0.25em 0;
+    color: #333333;
 }
 
 .tooltip{
@@ -74,4 +83,12 @@ p {
 .xAxis{
     fill: "#333333";
     font-family: "Amiri";
+}
+
+*:focus {
+    outline: 0;
+  }
+
+.tick > text{
+    fill: 333333;
 }

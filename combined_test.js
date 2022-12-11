@@ -95,7 +95,7 @@ info.onAdd = function (dataMap) {
 
 info.update = function (feature) {
     this._div.innerHTML = '<h4>US Public Employment Density</h4>' +  (feature ?
-        '<b>In ' + feature.properties.name +' '+ (feature.data.PEPW * 100).toFixed(2) + '% of the workforce <b></br>is employed in the public sector'
+        'In ' + feature.properties.name +' '+ (feature.data.PEPW * 100).toFixed(2) + '% of the workforce </br>is employed in the public sector'
         : 'Hover over a state');
 
 };
@@ -199,12 +199,16 @@ let state = {
       .append("svg")
       .attr("width", width3)
       .attr("height", height3)
-      .style("background-color", "rgb(213 200 175)");
+      .style("position", "relative")
+      .style("z-index", 0)
+      .style("background", "none");
   
       // + CALL Y AXIS
   const yAxisGroup = svg.append("g")
       .attr("class", 'yAxis')
       .attr("transform", `translate(${margin3.left}, ${0})`) // align with left margin
+      .style("position", "absolute")
+      .style("z-index", 1)
       .call(yAxis);
   
   // add labels - yAxis
@@ -229,7 +233,8 @@ let state = {
         .attr("x", (width3 - (width3/4) - margin3.right))
         .attr("y", (height3 - (height3/4) - margin3.bottom) -20)
         .style("display", "inline")
-        .style("position", "fixed")
+        .style("position", "relative")
+        .style("z-index", 2)
         .attr("width", width3/4)
         .attr("height", height3/4)
         .attr("rx", 15)
@@ -246,7 +251,8 @@ let state = {
         .attr("height", size)
         .style("fill", d => legColors(d))
         .style("display", "inline")
-        .style("position", "fixed")
+        .style("position", "relative")
+        .style("z-index", 3)
         .style("opacity", 0.75)
         .style("z-index", 2);
         
@@ -260,23 +266,55 @@ let state = {
             .text(d=> d)
             .attr("text-anchor", "left")
             .style("alignment-baseline", "mathematical")
+            .style("position", "absolute")
+            .style("z-index", 4)
             .style("opacity", 0.75)
             .style("font-family", "Amiri")
             .style("font-size", "14px");
 
 // Add UI within SVG //
-const selectElement = d3.select("#dropdown")
-  
-    selectElement  
+// const dropdown_container = d3.select("rect")
+//     .append("div")
+//     .attr("class", "dd_container")
+//     .style("position","relative")
+//     .style("z-index", 9)
+//     .style("left", `${(width3 - (width3/4) - margin3.right)+40}px`)
+//     .style("top", `${(height3 - margin3.bottom) -10}px`)
+//     .style("width", width3/5)
+//     .style("height", height3/5)
+//     ;
+
+const dropdown_container = d3.select("#container3")
+    .append("div")
+    .attr("class", "dd_container")
+    .style("position","relative")
+    .style("z-index", 9)
+    .style("left", `${(width3 - (width3/4) - margin3.right)+10}px`)
+    .style("bottom", `${(margin3.bottom + height3/5)-5}px`)
+    .style("width", width3/5)
+    .style("height", height3/5)
+    ;
+
+    // const dropdown_container = svg
+    // .append("div")
+    // .attr("class", "dd_container")
+    // .style("position","relative");
+
+dropdown_container
+    .append("select")
+    .attr("class", "dropdown")
+    .style("position", "relative")
+    .style("z-index", 8);
+
+const selectElement = d3.select("select")
+
+  selectElement  
       .selectAll("option")
       .data(["Total Workforce", "Unemployment", "Wages", "GDP"])
       .join("option")
       .attr("value", d => d)
       .text(d => d)
-      .style ("position", "realtive")
-      .style("left", (width3 - (width3/4) - margin3.right)+40)
-      .style("top", (height3 - (height3/4) - margin3.bottom) -10)
-      .style("z-index", 10);
+      ;
   
     selectElement
       .on("change", (event) => {
@@ -301,39 +339,6 @@ const selectElement = d3.select("#dropdown")
       })
   
     console.log(selectElement)
-
-// create a list of keys
-// var keys = ["Mister A", "Brigitte", "Eleonore", "Another friend", "Batman"]
-
-// // Usually you have a color scale in your chart already
-// var color = d3.scaleOrdinal()
-//   .domain(keys)
-//   .range(d3.schemeSet1);
-
-// Add one dot in the legend for each name.
-
-// svg.selectAll("mydots")
-//   .data(keys)
-//   .enter()
-//   .append("rect")
-//     .attr("x", 100)
-//     .attr("y", function(d,i){ return 100 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
-//     .attr("width", size)
-//     .attr("height", size)
-//     .style("fill", function(d){ return color(d)})
-
-// // Add one dot in the legend for each name.
-// SVG.selectAll("mylabels")
-//   .data(keys)
-//   .enter()
-//   .append("text")
-//     .attr("x", 100 + size*1.2)
-//     .attr("y", function(d,i){ return 100 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
-//     .style("fill", function(d){ return color(d)})
-//     .text(function(d){ return d})
-//     .attr("text-anchor", "left")
-//     .style("alignment-baseline", "middle")
-// </script>
 
     draw(); 
   }
@@ -361,8 +366,8 @@ const selectElement = d3.select("#dropdown")
         <br>Average Yearly Wage: $${d.wages}
         <br>Gross Domestic Product (2019) $${(d.GDP_2019_In_Mil/1000).toFixed(1)} B`
         )
-      .style("display", "inline")
-      .style("position","fixed")
+      .style("position", "fixed")
+      .style("z-index", 7)
       .style("left", (event.x)/2 + 'px') 
       .style("top", (event.y)/2 + 'px')
   };
@@ -376,13 +381,14 @@ const selectElement = d3.select("#dropdown")
   
   //Then create the if/else function based on the dropdown selection
   if (state.selectedGraph === "Total Workforce"){
-    const xAxis = d3.axisBottom(xScale3_TWF)
+    let xAxis = d3.axisBottom(xScale3_TWF)
       .tickFormat(d => (d / 1000000) + 'M');
-    
+
     const xAxisGroup = svg.append("g")
       .attr("class", 'xAxis')
       .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`)
-      .style("fill", "none")
+      .style("position", "absolute")
+      .style("z-index", 5)
 
     xAxisGroup.append("text")
       .attr("class", 'x-axis-title')
@@ -396,11 +402,11 @@ const selectElement = d3.select("#dropdown")
     
     d3.selectAll('.xAxis')
       .style("opacity", 0)
-      .call(xAxis) 
+      .call(xAxis)
         .transition()
         .duration(1000)        
         .style("opacity", 1)
-        .style('fill', 'none')//can't figure out how to access the tick text (xAxis.tick <text>). Within the d3.bottomAxis function, it is assigning a "fill"
+    
     
     //add circles  
     const circles = svg.selectAll("circle")
@@ -411,6 +417,8 @@ const selectElement = d3.select("#dropdown")
           .attr("cy", height3 - margin3.bottom)
           .attr("r", radius)
           .attr("fill", d => colorScale_graph(d.party))
+          .style("position", "absolute")
+          .style("z-index", 6)
           .style("opacity", 0)
           .call(sel => sel
             .transition()
@@ -442,11 +450,13 @@ const selectElement = d3.select("#dropdown")
   
   else if (state.selectedGraph === "Unemployment"){
     const xAxis = d3.axisBottom(xScale3_WFUE)
-      .tickFormat(d => (d*100) + '%'); //to convert to percent from decimal ranking
+      .tickFormat(d => (d*100).toFixed(2) + '%'); //to convert to percent from decimal ranking
   
     const xAxisGroup = svg.append("g")
       .attr("class", 'xAxis')
       .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
+      .style("position", "absolute")
+      .style("z-index", 5)
       .attr("fill", "none")
 
     xAxisGroup.append("text")
@@ -476,6 +486,8 @@ const selectElement = d3.select("#dropdown")
         .attr("cy", height3 - margin3.bottom)
         .attr("r", radius)
         .attr("fill", d => colorScale_graph(d.party))
+        .style("position", "absolute")
+        .style("z-index", 6)
         .style("opacity", 0)
         .call(sel => sel
           .transition()
@@ -512,6 +524,8 @@ const selectElement = d3.select("#dropdown")
     const xAxisGroup = svg.append("g")
       .attr("class", 'xAxis')
       .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
+      .style("position", "absolute")
+      .style("z-index", 5)
       .attr("fill", "none")
 
     xAxisGroup.append("text")
@@ -541,6 +555,8 @@ const selectElement = d3.select("#dropdown")
           .attr("cy", height3 - margin3.bottom)
           .attr("r", radius)
           .attr("fill", d => colorScale_graph(d.party))
+          .style("position", "absolute")
+          .style("z-index", 6)
           .style("opacity", 0)
           .call(sel => sel
             .transition()
@@ -577,6 +593,8 @@ const selectElement = d3.select("#dropdown")
     const xAxisGroup = svg.append("g")
       .attr("class", 'xAxis')
       .attr("transform", `translate(${0}, ${height3 - margin3.bottom})`) // move to the bottom
+      .style("position", "absolute")
+      .style("z-index", 5)
       .attr("fill", "none")
 
    xAxisGroup.append("text")
@@ -606,6 +624,8 @@ const selectElement = d3.select("#dropdown")
           .attr("cy", height3 - margin3.bottom)
           .attr("r", radius)
           .attr("fill", d => colorScale_graph(d.party))
+          .style("position", "absolute")
+          .style("z-index", 6)
           .style("opacity", 0)
           .call(sel => sel
             .transition()
