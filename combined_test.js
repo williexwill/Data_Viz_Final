@@ -17,6 +17,9 @@ let colorScale_graph;
 let geojson;
 
 /*CREATE MAP*/
+const mapwidth = d3.select("container1")
+    .style("width", `${width3}px`)
+
 let dataMap = L.map("container1", {center: [37.8, -96.9], zoom: 4});
 
 L.tileLayer('https://{s}.tile.jawg.io/jawg-light/{z}/{x}/{y}{r}.png?access-token={accessToken}', {
@@ -154,48 +157,11 @@ let state = {
   
   
   // + AXES
-  // const xAxis = d3.axisBottom(xScale)
-  //     .tickFormat(d => (d * 100) + '%');
-  const yAxis = d3.axisLeft(yScale3)
+    const yAxis = d3.axisLeft(yScale3)
       .tickFormat(d => (d * 100) + '%');
   
-    // + UI ELEMENT SETUP
-//   const selectElement = d3.select("#dropdown")
-  
-//     selectElement  
-//       .selectAll("option")
-//       .data(["Total Workforce", "Unemployment", "Wages", "GDP"])
-//       .join("option")
-//       .attr("value", d => d)
-//       .text(d => d)
-  
-//     selectElement
-//       .on("change", (event) => {
-//           console.log(event)
-//           console.log("prev", state)
-//           state.selectedGraph = event.target.value;
-//           console.log("post", state)
-//           d3.selectAll('.tooltip')
-//             .remove()
-//           d3.selectAll('.xAxis')
-//             .transition()
-//             .duration(500)
-//             .style("opacity", 0)
-//             .remove()
-//           d3.selectAll('.x-axis-title')
-//             .transition()
-//             .duration(500)
-//             .style("opacity", 0)
-//             .remove()
-  
-//           draw();
-//       })
-  
-//     console.log(selectElement)
-  
-  
-    // + CREATE SVG ELEMENT
-  svg = d3.select("#container3")
+// + CREATE SVG ELEMENT
+    svg = d3.select("#container3")
       .append("svg")
       .attr("width", width3)
       .attr("height", height3)
@@ -272,43 +238,26 @@ let state = {
             .style("font-family", "Amiri")
             .style("font-size", "14px");
 
-// Add UI within SVG //
-// const dropdown_container = d3.select("rect")
-//     .append("div")
-//     .attr("class", "dd_container")
-//     .style("position","relative")
-//     .style("z-index", 9)
-//     .style("left", `${(width3 - (width3/4) - margin3.right)+40}px`)
-//     .style("top", `${(height3 - margin3.bottom) -10}px`)
-//     .style("width", width3/5)
-//     .style("height", height3/5)
-//     ;
+    const dropdown_container = d3.select("#container3")
+        .append("div")
+        .attr("class", "dd_container")
+        .style("position","relative")
+        .style("z-index", 9)
+        .style("left", `${(width3 - (width3/4) - margin3.right)+10}px`)
+        .style("bottom", `${(margin3.bottom + height3/5)-5}px`)
+        .style("width", width3/5)
+        .style("height", height3/5);
 
-const dropdown_container = d3.select("#container3")
-    .append("div")
-    .attr("class", "dd_container")
-    .style("position","relative")
-    .style("z-index", 9)
-    .style("left", `${(width3 - (width3/4) - margin3.right)+10}px`)
-    .style("bottom", `${(margin3.bottom + height3/5)-5}px`)
-    .style("width", width3/5)
-    .style("height", height3/5)
-    ;
+    
+    dropdown_container
+        .append("select")
+        .attr("class", "dropdown")
+        .style("position", "relative")
+        .style("z-index", 8);
 
-    // const dropdown_container = svg
-    // .append("div")
-    // .attr("class", "dd_container")
-    // .style("position","relative");
+    const selectElement = d3.select("select")
 
-dropdown_container
-    .append("select")
-    .attr("class", "dropdown")
-    .style("position", "relative")
-    .style("z-index", 8);
-
-const selectElement = d3.select("select")
-
-  selectElement  
+    selectElement  
       .selectAll("option")
       .data(["Total Workforce", "Unemployment", "Wages", "GDP"])
       .join("option")
