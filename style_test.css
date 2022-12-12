@@ -14,16 +14,24 @@ h1 {
   color: #333333;
 }
 
+h2 {
+    font-family: "Aboreto";
+    font-size: 2em;
+    margin: 0.25em 0;
+    color: #333333;
+    text-align: center;up
+  }
+
 h3 {
-  font-family: "Amiri";
-  font-size: 2em;
+  font-family: "Aboreto";
+  font-size: 1em;
   margin: 0.25em 0;
   color: #333333;
 }
 
 p {
   font-family: "Amiri";
-  font-size: 20px;
+  font-size: 16px;
   color: #333333;
 }
 
@@ -48,6 +56,11 @@ p {
 }
 
 /*Graph*/
+#container3{
+    display: block;
+    margin: auto;
+}
+
 .dropdown{
     opacity: .75;
     background: none;
@@ -89,6 +102,7 @@ p {
     outline: 0;
   }
 
+/* this is getting overridden by the d3.bottomAxis function and I can't figure out how to override... */
 .tick > text{
     fill: 333333;
-}
+} 
