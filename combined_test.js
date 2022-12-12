@@ -165,6 +165,8 @@ let state = {
       .append("svg")
       .attr("width", width3)
       .attr("height", height3)
+      .style("display", "block")
+      .style("margin", "auto")
       .style("position", "relative")
       .style("z-index", 0)
       .style("background", "none");
@@ -243,15 +245,17 @@ let state = {
         .attr("class", "dd_container")
         .style("position","relative")
         .style("z-index", 9)
-        .style("left", `${(width3 - (width3/4) - margin3.right)+10}px`)
-        .style("bottom", `${(margin3.bottom + height3/5)-5}px`)
-        .style("width", width3/5)
-        .style("height", height3/5);
+        // .style("left", `${(width3 - (width3/4) - margin3.right)+10}px`)
+        // .style("bottom", `${(margin3.bottom + height3/5)-5}px`)
+        //.style("width", width3/5)
+        //.style("height", height3/5);
 
     
     dropdown_container
         .append("select")
         .attr("class", "dropdown")
+        .style("left", `${(width3 - (width3/4) - margin3.right)+10}px`)
+        .style("bottom", `${(margin3.bottom + height3/5)-5}px`)
         .style("position", "relative")
         .style("z-index", 8);
 
