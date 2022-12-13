@@ -1,3 +1,5 @@
+/*Universal*/
+
 body {
   font-size: 16px;
   padding: 1em;
@@ -12,18 +14,38 @@ h1 {
   color: #333333;
 }
 
+h2 {
+    font-family: "Aboreto";
+    font-size: 2em;
+    margin: 0.25em 0;
+    color: #333333;
+    text-align: center;
+  }
+
 h3 {
-  font-family: "Amiri";
-  font-size: 2em;
+  font-family: "Aboreto";
+  font-size: 1em;
   margin: 0.25em 0;
   color: #333333;
 }
 
 p {
   font-family: "Amiri";
-  font-size: 20px;
+  font-size: 16px;
   color: #333333;
 }
+
+ul {font-family: "Amiri";
+    font-size: 16px;
+    color: #333333;
+}
+
+.text{
+    color: #333333;
+    fill: none;
+}
+
+/*Map*/
 
 .info {
   padding: 6px 8px;
@@ -37,3 +59,55 @@ p {
   margin: 0 0 5px;
   color: #333333;
 }
+
+/*Graph*/
+#container3{
+    display: block;
+    margin: auto;
+}
+
+.dropdown{
+    opacity: .75;
+    background: none;
+    border: solid;
+    border-width: 0px;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: "Amiri";
+    font-size: 14px;
+    margin: 0.25em 0;
+    color: #333333;
+}
+
+.tooltip{
+    opacity: 0;
+    background-color: white;
+    border: solid;
+    border-width: 0px;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: "Amiri";
+    font-size: 14px;
+    margin: 0.25em 0;
+    color: #333333;
+
+}
+
+.yAxis{
+    fill: "#333333";
+    font-family: "Amiri";
+}
+
+.xAxis{
+    fill: "#333333";
+    font-family: "Amiri";
+}
+
+*:focus {
+    outline: 0;
+  }
+
+/* this is getting overridden by the d3.bottomAxis function and I can't figure out how to override... */
+.tick > text{
+    fill: 333333;
+} 

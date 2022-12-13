@@ -16,6 +16,7 @@ https://colab.research.google.com/drive/1BqUQ0jE1PWRWO23uX35q47HKRLoAIN_S?usp=sh
 ## Map
 I have some experience with Leaflet mapping, so I'm going to try to incoproate that with my data and some d3 implementation. 
 
+I worked off these two tutorials and customized to my needs. 
 https://leafletjs.com/examples/choropleth/
 https://bost.ocks.org/mike/leaflet/ 
 
@@ -124,3 +125,8 @@ When I add a transition to the x-axis .call, the select function is no longer ab
 When I tried to add an enter function (never mind update/exit) to the circles, it fails to append any circles to the svg...(no error appearing, just circles aren't being appended...)
 
 After office hours I realized I had some chaining issues. With a little trial and error I was able to rework the script and get everything functioning. 
+
+There was only one issue I wasn't able to resolve. As part of the d3 bottomAxis method, the fill color on the x-axis was reassigned everytime it was drawn. I tried overriding this both the draw, and transition stages, and also directly on the css file, but I couldn't get it. As a result the x-axis appears a bit too dark.
+
+### Legend
+I spent a long time trying to figure out how to display my select element dropdown, floated in the proper position over my graph. I wasn't able to append it directly to to SVG and get it to appear. After a lot of trial and error I appended it to its own div within container3 like the tool tips and used z-indexing and dynamic placement instructions to move it and rescale it along with a rescaling window/underlying SVG. However, when I implemented auto-margins and centering, it affected the postioning in a way I wasn't able to resolve. Sometimes it displays corretly, but sometimes it loses its relative postion. 
